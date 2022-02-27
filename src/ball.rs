@@ -27,8 +27,8 @@ impl Ball {
     pub fn get_next_location(&self, delta_time: f64) -> (f64, f64) {
         let distance_x = self.vx * delta_time;
         let distance_y = self.vy * delta_time;
-        let new_x = self.x * distance_x;
-        let new_y = self.y * distance_y;
+        let new_x = self.x + distance_x;
+        let new_y = self.y + distance_y;
         (new_x, new_y)
     }
 

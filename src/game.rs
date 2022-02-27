@@ -137,34 +137,35 @@ impl Game {
                 self.ball.set_position(6.0, 6.0 + MARGIN_TOP);
                 self.score += 1;
             }
-            if self.game_over {
-                return;
-            }
-            if next_y > (self.height - 1) as f64 || next_y < MARGIN_TOP + 1.0 {
-                self.ball.flip_velocity_y();
-            }
+        }
+        if self.game_over {
+            return;
+        }
 
-            if next_x.floor() >= (self.player.get_position_x() - 1.0)
-                && next_y >= self.player.get_position_y()
-                && next_y <= self.player.get_position_y() + (self.player.get_size() / 2) as f64
-            {
-                let paddle_center =
-                    self.player.get_position_y() + (self.player.get_size() / 2) as f64;
-                let d = paddle_center as f64 - next_y;
-                self.ball.flip_velocity_x();
-                self.ball.increase_y(d * -20.0);
-            }
+        if next_y > (self.height - 1) as f64 || next_y < MARGIN_TOP + 1.0 {
+            self.ball.flip_velocity_y();
+        }
 
-            if next_x.ceil() <= (self.enemy.get_position_x() + 1.0)
-                && next_y >= self.enemy.get_position_y()
-                && next_y <= self.enemy.get_position_y() + self.enemy.get_size() as f64
-            {
-                let paddle_center =
-                    self.enemy.get_position_y() + (self.enemy.get_size() / 2) as f64;
-                let d = paddle_center as f64 - next_y;
-                self.ball.flip_velocity_x();
-                self.ball.increase_y(d * -20.0);
-            }
+        if next_x.floor() >= (self.player.get_position_x() - 1.0)
+            && next_y >= self.player.get_position_y()
+            && next_y <= self.player.get_position_y() + (self.player.get_size() / 2) as f64
+        {
+            let paddle_center =
+                self.player.get_position_y() + (self.player.get_size() / 2) as f64;
+            let d = paddle_center as f64 - next_y;
+            self.ball.flip_velocity_x();
+            self.ball.increase_y(d * -20.0);
+        }
+
+        if next_x.ceil() <= (self.enemy.get_position_x() + 1.0)
+            && next_y >= self.enemy.get_position_y()
+            && next_y <= self.enemy.get_position_y() + self.enemy.get_size() as f64
+        {
+            let paddle_center =
+                self.enemy.get_position_y() + (self.enemy.get_size() / 2) as f64;
+            let d = paddle_center as f64 - next_y;
+            self.ball.flip_velocity_x();
+            self.ball.increase_y(d * -20.0);
         }
         self.ball.set_position(next_x, next_y);
     }
